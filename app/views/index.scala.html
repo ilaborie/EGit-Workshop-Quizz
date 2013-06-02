@@ -1,0 +1,77 @@
+@(uuid: String)
+
+@main("Git & EGit beginner workshop - Exam") {
+    <form class="" method="POST" action="score">
+        <input type="hidden" id="uuid" name="uuid" value="@uuid">
+        <fieldset>
+            <legend>Exam</legend>
+
+            <div class="control-group">
+                <label class="control-label" for="name">Login</label>
+                <div class="controls">
+                    <input type="text" id="name" name="name" required="required"/>
+                    <span class="help-inline"></span>
+                </div>
+            </div>
+
+            <p class="text-warning"><strong>Warning</strong><br>
+                Sorry some questions are a little bit tricky !
+            </p>
+            @radio("dvcs", "Git is the only open-source DVCS", Map("yes" -> "Yes", "no" -> "No"))
+
+            @radio("jgit", "JGit is", Map(
+                "java" -> "Full Java",
+                "mixed" -> "Java for remote, and native code for local woks",
+                "native" -> "mostly use native code"))
+
+            @radio("offline", "I can push branch when I'm working offline", Map("yes" -> "Yes", "no" -> "No"))
+
+            @radio("parent", "A commit can have", Map(
+                "0" -> "no parent",
+                "1" -> "only one parent",
+                "2" -> "0, 1, or 2 parents (if merge commit)",
+                "n" -> "0..n parents"))
+
+            @radio("rebase", "Rebased commit keep conserve is original id", Map("yes" -> "Yes", "no" -> "No"))
+
+            @radio("creator", "Git have been started by", Map(
+                "bill" -> "Bill Gates",
+                "rms" -> "Richard M. Stallman",
+                "linus" -> "Linus Torvald",
+                "shawn" -> "Shawn Pearce"))
+
+            @radio("merge", "When I merge two branches, there always are a merge commit", Map("yes" -> "Yes", "no" -> "No"))
+
+            @radio("license", "EGit and JGit", Map(
+                "epl" -> "both use ELP license",
+                "asl" -> "both use Apache License",
+                "edl" -> "both use EDL license",
+                "mixed" -> "use EDL license for JGit and EPL License for EGit"))
+
+            @radio("amend", "I can easly modify the last commit", Map("yes" -> "Yes", "no" -> "No"))
+
+            @radio("gerrit", "Gerrit have been started", Map(
+                "apple" -> "for iOS development",
+                "google" -> "for Android development",
+                "eclipse" -> "for EGit development"))
+
+            @radio("lock", "I can lock file with Git", Map("yes" -> "Yes", "no" -> "No"))
+
+            @radio("feature", "What feature is not (yet) implemented in EGit ?", Map(
+                "stash" -> "Stashing",
+                "bisect" -> "Biscet",
+                "rebase" -> "Rebasing",
+                "submodule" -> "Submodule"))
+
+            @radio("fun", "Git is fun", Map("yes" -> "Yes", "no" -> "No"))
+
+
+        </fieldset>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success pull-right">Submit</button>
+            <button type="reset" class="btn">Reset</button>
+        </div>
+    </form>
+}
+
+

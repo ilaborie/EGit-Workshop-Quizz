@@ -1,0 +1,14 @@
+@(id: String, query: String, responses: Map[String, String])
+
+<div class="control-group question">
+    <label class="control-label" for="@id">@query</label>
+    <div class="controls">
+    @responses.map {
+        case (value, resp) => {
+            <label class="radio">
+                <input type="radio" name="@id" value="@value"> @resp
+            </label>
+        }
+    }
+    </div>
+</div>

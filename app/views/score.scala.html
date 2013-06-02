@@ -1,0 +1,32 @@
+@(user: model.UserResult, users: List[model.UserResult])
+
+@main("Git & EGit beginner workshop - Result") {
+    <h1>Your score is <em>@user.score</em></h1>
+    <p>@user.name, thanks for participation</p>
+
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th>Score</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(u <- users) {
+            @if(u.uuid == user.uuid) {
+                <tr class="success">
+                    <td>@user.score</td>
+                    <td>@u.name</td>
+                </tr>
+            } else {
+            <tr>
+                <td>@u.score</td>
+                <td>@u.name</td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+}
+
+

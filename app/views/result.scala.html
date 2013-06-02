@@ -1,0 +1,22 @@
+@(users: List[model.UserResult])
+
+@main("Git & EGit beginner workshop - Result") {
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th>Score</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(user <- users) {
+            <tr>
+                <td>@user.score</td>
+                <td>@user.name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+

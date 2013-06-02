@@ -1,0 +1,8 @@
+/**
+ *
+ */
+
+$(function () {
+    $("#name").focus()
+    // TODO
+});
