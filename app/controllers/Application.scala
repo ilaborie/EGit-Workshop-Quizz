@@ -24,13 +24,51 @@ object Application extends Controller {
     "fun" -> "yes")
 
   /**
-   * Provide the index page
-   * @return the index page
+   * Redirect to quizz
+   * @return the default page
    */
   def index = Action {
+    Redirect("/quizz")
+  }
+
+  /**
+   * Show Quiz
+   * @return the quizz page
+   */
+  def quizz = Action {
     implicit request =>
       val uuid = session.get("uuid").getOrElse(UUID.randomUUID().toString)
       Ok(views.html.index(uuid))
+  }
+
+  /**
+   * Clear score
+   * @return ok
+   */
+  def clear = Action {
+    UserResult.clear
+    Ok
+  }
+
+  /**
+   * Create Remote Repository name
+   * @param name the name
+   * @return the process remote page
+   */
+  def remote(name: String) = Action {
+    Repository.findRepository(name) match {
+      case Some(_) => BadRequest("Repository already exists")
+      case _ => if (Repository.createRepository(name)) Ok else BadRequest("Unable to create repository")
+    }
+  }
+
+  /**
+   * Check name
+   * @param name the name
+   * @return ok if the name does not exist
+   */
+  def checkName(name: String) = Action {
+    if (UserResult.exists(name)) BadRequest else Ok
   }
 
   /**
@@ -56,8 +94,6 @@ object Application extends Controller {
       params match {
         case Some(m) => {
           def param(key: String) = m.getOrElse(key, Seq("")).head
-
-          // Check token
           val score = computeScore(m)
           val user = UserResult(request.remoteAddress, param("name"), score);
           UserResult.store(user)

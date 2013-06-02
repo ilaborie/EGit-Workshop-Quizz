@@ -9,6 +9,7 @@ object ApplicationBuild extends Build {
 
   val appDependencies = Seq(
     // Add your project dependencies here,
+    "org.eclipse.jgit" % "org.eclipse.jgit" % "2.3.1.201302201838-r",
     jdbc,
     anorm
   )

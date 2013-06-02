@@ -1,7 +1,11 @@
 # Home page
 GET     /                           controllers.Application.index
-POST    /score                      controllers.Application.score
-GET     /result                     controllers.Application.result
+GET     /remote/:name               controllers.Application.remote(name)
+GET     /quizz                      controllers.Application.quizz
+POST    /quizz/score                controllers.Application.score
+GET     /quizz/result               controllers.Application.result
+GET     /quizz/clear                controllers.Application.clear
+POST    /quizz/checkName/:name      controllers.Application.checkName(name)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
