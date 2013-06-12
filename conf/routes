@@ -1,6 +1,5 @@
 # Home page
 GET     /                           controllers.Application.index
-GET     /remote/:name               controllers.Application.remote(name)
 GET     /quizz                      controllers.Application.quizz
 POST    /quizz/score                controllers.Application.score
 GET     /quizz/result               controllers.Application.result

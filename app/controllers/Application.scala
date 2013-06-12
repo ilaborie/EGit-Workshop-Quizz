@@ -51,24 +51,12 @@ object Application extends Controller {
   }
 
   /**
-   * Create Remote Repository name
-   * @param name the name
-   * @return the process remote page
-   */
-  def remote(name: String) = Action {
-    Repository.findRepository(name) match {
-      case Some(_) => BadRequest("Repository already exists")
-      case _ => if (Repository.createRepository(name)) Ok else BadRequest("Unable to create repository")
-    }
-  }
-
-  /**
    * Check name
    * @param name the name
    * @return ok if the name does not exist
    */
   def checkName(name: String) = Action {
-    if (UserResult.exists(name)) BadRequest else Ok
+    if (UserResult.exists(name)) BadRequest("User already exists") else Ok
   }
 
   /**
@@ -77,12 +65,12 @@ object Application extends Controller {
    * @return the score
    */
   private def computeScore(map: Map[String, Seq[String]]): Int =
-    map.filter(entry => {
+    map.count(entry => {
       val expected = answers.get(entry._1).getOrElse("")
       val result = entry._2.head
 
       expected == result
-    }).size
+    })
 
   /**
    * Provide result page with score
@@ -94,8 +82,11 @@ object Application extends Controller {
       params match {
         case Some(m) => {
           def param(key: String) = m.getOrElse(key, Seq("")).head
+          val uuid = param("uuid")
+          val name = param("name")
           val score = computeScore(m)
-          val user = UserResult(request.remoteAddress, param("name"), score);
+
+          val user = UserResult(uuid, name, score)
           UserResult.store(user)
           Ok(views.html.score(user, UserResult.list))
         }

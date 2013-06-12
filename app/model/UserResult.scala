@@ -47,8 +47,7 @@ object UserResult {
    */
   def list = DB.withConnection {
     implicit conn =>
-      val sqlQuery = SQL("SELECT uuid, name, score FROM scores ORDER BY score DESC")
-      sqlQuery()
+      SQL("SELECT uuid, name, score FROM scores ORDER BY score DESC")()
         .map(row => UserResult(row[String]("uuid"), row[String]("name"), row[Int]("score")))
         .toList
   }
